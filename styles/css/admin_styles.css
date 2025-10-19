@@ -1,0 +1,130 @@
+:root {
+    --bg: #f5f7fb;
+    --card: #fff;
+    --accent: #4a69bd;
+    --danger: #e74c3c;
+    --muted: #666;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: #222;
+}
+
+.admin-wrap {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 16px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--accent);
+}
+
+#loginForm input {
+    padding: 6px 8px;
+    margin-right: 6px;
+}
+
+#loginForm button {
+    padding: 6px 10px;
+}
+
+.toolbar {
+    margin: 16px 0;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#filterInput {
+    padding: 6px 8px;
+    flex: 1;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.admin-table th, .admin-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.admin-table img {
+    width: 60px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+button {
+    cursor: pointer;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+button.danger {
+    background: var(--danger);
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+    visibility: hidden;
+    opacity: 0;
+    transition: all .15s;
+}
+
+.modal[aria-hidden="false"] {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background: var(--card);
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.modal label {
+    display: block;
+    margin: 8px 0;
+}
+
+.modal input[type="text"], .modal input[type="number"], .modal textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}

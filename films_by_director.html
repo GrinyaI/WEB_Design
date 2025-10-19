@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Видеотека – Фильмы режиссера</title>
+    <link href="styles/css/styles.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/site.webmanifest">
+</head>
+<body>
+<header>
+    <div class="container header-container">
+        <h1><i class="fas fa-film"></i> Видеотека</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
+                <li><a href="genres.html"><i class="fas fa-tags"></i> Жанры</a></li>
+                <li><a href="films.html"><i class="fas fa-list"></i> Фильмы</a></li>
+                <li><a href="directors.html"><i class="fas fa-user-tie"></i> Режиссеры</a></li>
+            </ul>
+        </nav>
+        <div class="search-area">
+            <input id="searchInput" placeholder="Поиск фильмов..." type="text">
+            <button id="searchBtn" type="button"><i class="fas fa-search"></i></button>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="container">
+        <section class="director-header" id="directorData">
+
+        </section>
+
+        <div class="tab-content active" id="films-tab">
+            <div class="sort-controls">
+                <button class="btn-small active" data-sort="year">По году</button>
+                <button class="btn-small" data-sort="rating">По рейтингу</button>
+                <button class="btn-small" data-sort="title">По названию</button>
+            </div>
+
+            <div class="film-grid" id="directorFilms">
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>О видеотеке</h3>
+                <p>Лучшая коллекция фильмов для настоящих киноманов.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p><i class="fas fa-envelope"></i> info@videoteka.ru</p>
+                <p><i class="fas fa-phone"></i> +7 (123) 456-78-90</p>
+            </div>
+            <div class="footer-section">
+                <h3>Подписаться</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Видеотека. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="scripts/search.js"></script>
+<script src="scripts/films_by_director.js"></script>
+</body>
+</html>
