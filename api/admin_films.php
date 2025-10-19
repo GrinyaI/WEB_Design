@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
-if (empty($_SESSION['is_admin'])) {
+if (empty($_SESSION['admin_id']) || empty($_SESSION['is_admin'])) {
     http_response_code(401);
     echo json_encode(['error'=>'Требуется авторизация']);
     exit;
