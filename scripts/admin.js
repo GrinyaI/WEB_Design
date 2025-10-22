@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
+    const loginSocial = document.getElementById('loginSocial');
+    const loginSocialBtn = document.getElementById('loginSocialBtn');
     const loggedIn = document.getElementById('loggedIn');
     const logoutBtn = document.getElementById('logoutBtn');
     const mainContent = document.getElementById('mainContent');
@@ -19,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const json = await res.json();
         if (res.ok && json.success) {
             loginForm.style.display = 'none';
+            loginSocial.style.display = 'none';
             loggedIn.style.display = 'block';
             mainContent.style.display = 'block';
             await loadFilms();
@@ -27,9 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    loginSocial.addEventListener('click', async () => {
+        window.location.href = '/api/admin_oauth_login.php?provider=github';
+    });
+
     logoutBtn?.addEventListener('click', async () => {
         await fetch('../api/admin_logout.php', {method: 'POST'});
         loginForm.style.display = 'flex';
+        loginSocial.style.display = 'flex';
         loggedIn.style.display = 'none';
         mainContent.style.display = 'none';
     });
@@ -170,16 +178,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await fetch('../api/admin_films.php');
         if (res.status === 401) {
             loginForm.style.display = 'flex';
+            loginSocial.style.display = 'flex';
             loggedIn.style.display = 'none';
             mainContent.style.display = 'none';
         } else if (res.ok) {
             loginForm.style.display = 'none';
+            loginSocial.style.display = 'none';
             loggedIn.style.display = 'block';
             mainContent.style.display = 'block';
             const data = await res.json();
             renderFilms(data);
         } else {
             loginForm.style.display = 'flex';
+            loginSocial.style.display = 'flex';
             loggedIn.style.display = 'none';
             mainContent.style.display = 'none';
         }

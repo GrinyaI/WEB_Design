@@ -41,6 +41,10 @@ header h1 {
     padding: 6px 10px;
 }
 
+#loginSocial button {
+    margin-top: 10px;
+}
+
 .toolbar {
     margin: 16px 0;
     display: flex;
