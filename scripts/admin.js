@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    loginSocial.addEventListener('click', async () => {
+    loginSocialBtn.addEventListener('click', async () => {
         window.location.href = '/api/admin_oauth_login.php?provider=github';
     });
 
