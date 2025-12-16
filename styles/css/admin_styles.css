@@ -132,3 +132,9 @@ button.danger {
     gap: 8px;
     margin-top: 12px;
 }
+
+#userInfo { font-weight: 600; font-size: 0.95rem; }
+.user-icon, .provider-icon { margin-right: 6px; font-size: 1rem; vertical-align: middle; color: inherit; }
+.user-label { font-weight: 400; font-size: 0.85rem; color: #6b6b6b; margin-left: 4px; }
+.user-email { margin-right: 4px; }
+.user-right .provider-icon { margin-left: 6px; }

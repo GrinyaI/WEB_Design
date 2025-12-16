@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginSocialBtn = document.getElementById('loginSocialBtn');
     const loggedIn = document.getElementById('loggedIn');
     const logoutBtn = document.getElementById('logoutBtn');
+    const userInfo = document.getElementById('userInfo');
+    const userLeft = userInfo.querySelector('.user-left');
+    const userRight = userInfo.querySelector('.user-right');
     const mainContent = document.getElementById('mainContent');
     const filmsTableBody = document.querySelector('#filmsTable tbody');
     const btnNew = document.getElementById('btnNew');
@@ -24,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loginSocial.style.display = 'none';
             loggedIn.style.display = 'block';
             mainContent.style.display = 'block';
+            renderUserInfo({ email: json.email || '', username: json.username || '', provider: json.provider || null, display: (json.email || json.username) });
             await loadFilms();
         } else {
             alert(json.error || 'Ошибка входа');
@@ -40,8 +44,55 @@ document.addEventListener('DOMContentLoaded', () => {
         loginSocial.style.display = 'flex';
         loggedIn.style.display = 'none';
         mainContent.style.display = 'none';
+        renderUserInfo({});
     });
 
+    function renderUserInfo(me = {}) {
+        userLeft.textContent = '';
+        userRight.innerHTML = '';
+
+        if (!me || (!me.email && !me.username && !me.display)) {
+            userLeft.textContent = '';
+            return;
+        }
+
+        if (me.email) {
+            const mailIcon = document.createElement('i');
+            mailIcon.className = 'fa-regular fa-envelope user-icon';
+            mailIcon.setAttribute('aria-hidden', 'true');
+
+            const emailSpan = document.createElement('span');
+            emailSpan.className = 'user-email';
+            emailSpan.textContent = me.email;
+
+            const label = document.createElement('small');
+            label.className = 'user-label';
+            label.textContent = ' (email)';
+
+            userLeft.appendChild(mailIcon);
+            userLeft.appendChild(emailSpan);
+            userLeft.appendChild(label);
+
+            if (me.provider === 'github') {
+                const prov = document.createElement('i');
+                prov.className = 'fa-brands fa-github provider-icon';
+                prov.setAttribute('title', 'GitHub');
+                prov.setAttribute('aria-hidden', 'true');
+                userRight.appendChild(prov);
+            }
+        } else {
+            const userIcon = document.createElement('i');
+            userIcon.className = 'fa-regular fa-user user-icon';
+            userIcon.setAttribute('aria-hidden', 'true');
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'user-name';
+            nameSpan.textContent = me.display || me.username || '';
+
+            userLeft.appendChild(userIcon);
+            userLeft.appendChild(nameSpan);
+        }
+    }
 
     async function loadFilms() {
         const res = await fetch('../api/admin_films.php');
@@ -59,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filmsTableBody.innerHTML = '<tr><td colspan="9">Нет фильмов</td></tr>';
             return;
         }
-        for (const film of list) {
+        for (const film of list.reverse()) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
         <td>${escapeHtml(film.id)}</td>
@@ -188,6 +239,23 @@ document.addEventListener('DOMContentLoaded', () => {
             mainContent.style.display = 'block';
             const data = await res.json();
             renderFilms(data);
+            try {
+                const meRes = await fetch('../api/admin_me.php');
+                if (meRes.ok) {
+                    const me = await meRes.json();
+                    renderUserInfo({ email: me.email || '', username: me.username || '', provider: me.provider || null, display: me.display || '' });
+                } else {
+                    if (meRes.status === 401) {
+                        renderUserInfo({});
+                        loginForm.style.display = 'flex';
+                        loginSocial.style.display = 'flex';
+                        loggedIn.style.display = 'none';
+                        mainContent.style.display = 'none';
+                    }
+                }
+            } catch (err) {
+                console.error('Не удалось получить данные пользователя', err);
+            }
         } else {
             loginForm.style.display = 'flex';
             loginSocial.style.display = 'flex';

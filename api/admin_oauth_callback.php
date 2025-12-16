@@ -125,10 +125,18 @@ if (intval($map['is_active']) !== 1) {
     exit;
 }
 
+if ($token) {
+    $_SESSION['oauth_access_token'] = $token;
+    $_SESSION['oauth_provider'] = $provider;
+}
+
 session_regenerate_id(true);
 $_SESSION['admin_id'] = (int)$map['admin_user_id'];
 $_SESSION['admin_username'] = $map['username'];
 $_SESSION['is_admin'] = true;
+
+$_SESSION['admin_email'] = !empty($provider_email) ? $provider_email : '';
+$_SESSION['auth_provider'] = $provider;
 
 $adminUrl = '/admin.html';
 header("Location: $adminUrl");
