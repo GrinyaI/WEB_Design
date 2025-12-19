@@ -14,63 +14,66 @@
 <body>
 <header>
     <div class="container header-container">
-        <h1><i class="fas fa-film"></i> Видеотека</h1>
-        <nav>
+        <h1><i class="fas fa-film" aria-hidden="true"></i> <span class="brand">Видеотека</span></h1>
+        <nav aria-label="Основная навигация">
             <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
-                <li><a href="genres.html"><i class="fas fa-tags"></i> Жанры</a></li>
-                <li><a class="active" href="films.html"><i class="fas fa-list"></i> Фильмы</a></li>
-                <li><a href="directors.html"><i class="fas fa-user-tie"></i> Режиссеры</a></li>
+                <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Главная</a></li>
+                <li><a href="genres.html"><i class="fas fa-tags" aria-hidden="true"></i> Жанры</a></li>
+                <li><a class="active" href="films.html" aria-current="page"><i class="fas fa-list" aria-hidden="true"></i> Фильмы</a></li>
+                <li><a href="directors.html"><i class="fas fa-user-tie" aria-hidden="true"></i> Режиссеры</a></li>
             </ul>
         </nav>
-        <div class="search-area">
-            <input id="searchInput" placeholder="Поиск фильмов..." type="text">
-            <button id="searchBtn" type="button"><i class="fas fa-search"></i></button>
-            <div class="search-results" id="searchResults"></div>
+        <div class="search-area" role="search">
+            <label for="searchInput" class="visually-hidden">Поиск фильмов</label>
+            <input id="searchInput" placeholder="Поиск фильмов..." type="text" aria-controls="searchResults" aria-autocomplete="list" aria-label="Поиск фильмов">
+            <button id="searchBtn" type="button" aria-label="Запустить поиск"><i class="fas fa-search" aria-hidden="true"></i></button>
+            <div class="search-results" id="searchResults" role="listbox" aria-live="polite" aria-hidden="true"></div>
         </div>
     </div>
 </header>
 
 <main>
     <div class="container">
-        <section class="section-title">
-            <h2><i class="fas fa-list"></i> Все фильмы</h2>
-            <div class="filter-controls">
-                <div class="dropdown">
-                    <button class="btn-small dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-filter"></i> Фильтр по жанру
+        <section class="section-title" aria-labelledby="all-films-title">
+            <h2 id="all-films-title"><i class="fas fa-list" aria-hidden="true"></i> Все фильмы</h2>
+
+            <div class="filter-controls" role="region" aria-label="Фильтры и сортировка">
+                <div class="dropdown" id="genreDropdown">
+                    <button class="btn-small dropdown-toggle" id="genreToggle" aria-haspopup="menu" aria-expanded="false" aria-controls="genreMenu">
+                        <i class="fas fa-filter" aria-hidden="true"></i> <span id="genreLabel">Фильтр: Все жанры</span>
                     </button>
-                    <div class="dropdown-menu">
-                        <a data-genre="all" href="#">Все жанры</a>
-                        <a data-genre="drama" href="#">Драма</a>
-                        <a data-genre="comedy" href="#">Комедия</a>
-                        <a data-genre="action" href="#">Боевик</a>
-                        <a data-genre="fantasy" href="#">Фэнтези</a>
+                    <div class="dropdown-menu" id="genreMenu" role="menu" aria-hidden="true">
+                        <a role="menuitem" data-genre="all" href="#">Все жанры</a>
+                        <a role="menuitem" data-genre="Драма" href="#">Драма</a>
+                        <a role="menuitem" data-genre="Комедия" href="#">Комедия</a>
+                        <a role="menuitem" data-genre="Боевик" href="#">Боевик</a>
+                        <a role="menuitem" data-genre="Фэнтези" href="#">Фэнтези</a>
                     </div>
                 </div>
 
-                <div class="dropdown">
-                    <button class="btn-small dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-sort"></i> Сортировка
+                <div class="dropdown" id="sortDropdown">
+                    <button class="btn-small dropdown-toggle" id="sortToggle" aria-haspopup="menu" aria-expanded="false" aria-controls="sortMenu">
+                        <i class="fas fa-sort" aria-hidden="true"></i> <span id="sortLabel">Сортировка: По умолчанию</span>
                     </button>
-                    <div class="dropdown-menu">
-                        <a data-sort="rating" href="#">По рейтингу</a>
-                        <a data-sort="year" href="#">По году</a>
-                        <a data-sort="title" href="#">По названию</a>
+                    <div class="dropdown-menu" id="sortMenu" role="menu" aria-hidden="true">
+                        <a role="menuitem" data-sort="default" href="#">По умолчанию</a>
+                        <a role="menuitem" data-sort="По рейтингу" href="#">По рейтингу</a>
+                        <a role="menuitem" data-sort="По году" href="#">По году</a>
+                        <a role="menuitem" data-sort="По названию" href="#">По названию</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="film-grid" id="allFilms">
-            <!-- Динамически загружаемые карточки фильмов -->
+        <div class="film-grid" id="allFilms" role="list" aria-live="polite" aria-busy="true">
+            <!-- Скелетоны / карточки загружены скриптом -->
         </div>
 
-        <div class="pagination">
-            <button class="btn-small" disabled><i class="fas fa-chevron-left"></i></button>
-            <button class="btn-small active">1</button>
-            <button class="btn-small"><i class="fas fa-chevron-right"></i></button>
-        </div>
+        <nav class="pagination" aria-label="Переход по страницам" id="pagination">
+            <button class="btn-small" id="prevPage" aria-label="Предыдущая страница" disabled><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <div id="pageNumbers" style="display:inline-flex; gap:6px; align-items:center;"></div>
+            <button class="btn-small" id="nextPage" aria-label="Следующая страница" disabled><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+        </nav>
     </div>
 </main>
 
@@ -78,20 +81,21 @@
     <div class="container">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>О видеотеке</h3>
+                <h3>О видеотеке <a class="help-btn" title="Краткая справка" aria-label="Открыть краткую справку"><i
+                        class="fas fa-question" aria-hidden="true" style="color: #f5f6fa"></i></a></h3>
                 <p>Лучшая коллекция фильмов для настоящих киноманов.</p>
             </div>
             <div class="footer-section">
                 <h3>Контакты</h3>
-                <p><i class="fas fa-envelope"></i> info@videoteka.ru</p>
-                <p><i class="fas fa-phone"></i> +7 (123) 456-78-90</p>
+                <p><i class="fas fa-envelope" aria-hidden="true"></i> info@videoteka.ru</p>
+                <p><i class="fas fa-phone" aria-hidden="true"></i> +7 (123) 456-78-90</p>
             </div>
             <div class="footer-section">
                 <h3>Подписаться</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-vk"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                <div class="social-icons" role="list">
+                    <a href="#" title="ВКонтакте" aria-label="ВКонтакте"><i class="fab fa-vk" aria-hidden="true"></i></a>
+                    <a href="#" title="Telegram" aria-label="Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a>
+                    <a href="#" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
@@ -100,6 +104,8 @@
         </div>
     </div>
 </footer>
+
+<div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
 <script src="scripts/search.js"></script>
 <script src="scripts/films.js"></script>

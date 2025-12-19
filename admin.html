@@ -25,7 +25,8 @@
                 <button id="loginSocialBtn">Войти через GitHub</button>
             </div>
             <div id="loggedIn" style="display:none;">
-                <div id="userInfo" aria-live="polite" style="display:inline-flex; align-items:center; gap:8px; margin-right:12px; vertical-align:middle;">
+                <div id="userInfo" aria-live="polite"
+                     style="display:inline-flex; align-items:center; gap:8px; margin-right:12px; vertical-align:middle;">
                     <span class="user-left" aria-hidden="false"></span>
                     <span class="user-right" aria-hidden="true"></span>
                 </div>
@@ -63,15 +64,54 @@
     <div id="modal" class="modal" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true">
             <h2 id="modalTitle">Новый фильм</h2>
+
             <form id="filmForm">
                 <input type="hidden" name="id" id="filmId">
-                <label>Название <input name="title" id="title" required></label>
-                <label>Год <input name="year" id="year" type="number"></label>
-                <label>Рейтинг <input name="rating" id="rating" step="0.1" type="number"></label>
-                <label>Director ID <input name="director_id" id="director_id" type="number"></label>
-                <label>Постер (файл) <input name="poster" id="poster" type="file" accept="image/*"></label>
-                <label><input type="checkbox" name="is_new" id="is_new"> Новинка</label>
-                <label><input type="checkbox" name="is_popular" id="is_popular"> Популярный</label>
+
+                <div class="form-grid">
+                    <label>
+                        Название
+                        <input type="text" name="title" id="title" required>
+                    </label>
+
+                    <label>
+                        Год
+                        <input type="number" name="year" id="year" placeholder="Например: 2024">
+                    </label>
+
+                    <label>
+                        Рейтинг
+                        <input type="number" name="rating" id="rating" step="0.1" min="0" max="10" placeholder="0–10">
+                    </label>
+
+                    <label>
+                        Режиссёр
+                        <div class="custom-select-wrapper">
+                            <select name="director_id" id="director_id" required>
+                                <option value="">Выберите режиссёра</option>
+                            </select>
+                        </div>
+                    </label>
+
+
+                    <label class="form-full">
+                        Постер
+                        <input type="file" name="poster" id="poster" accept="image/*">
+                    </label>
+                </div>
+
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="is_new" id="is_new">
+                        Новинка
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="is_popular" id="is_popular">
+                        Популярный
+                    </label>
+                </div>
+
                 <div class="modal-actions">
                     <button type="submit" id="saveBtn">Сохранить</button>
                     <button type="button" id="cancelBtn">Отмена</button>

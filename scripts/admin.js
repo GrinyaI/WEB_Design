@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const filmForm = document.getElementById('filmForm');
     const modalTitle = document.getElementById('modalTitle');
     const cancelBtn = document.getElementById('cancelBtn');
+    const directorSelect = document.getElementById('director_id');
+
+    let directorsCache = [];
 
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -27,7 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
             loginSocial.style.display = 'none';
             loggedIn.style.display = 'block';
             mainContent.style.display = 'block';
-            renderUserInfo({ email: json.email || '', username: json.username || '', provider: json.provider || null, display: (json.email || json.username) });
+            renderUserInfo({
+                email: json.email || '',
+                username: json.username || '',
+                provider: json.provider || null,
+                display: (json.email || json.username)
+            });
             await loadFilms();
         } else {
             alert(json.error || 'Ошибка входа');
@@ -153,10 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    btnNew.addEventListener('click', () => {
+    btnNew.addEventListener('click', async () => {
         filmForm.reset();
         document.getElementById('filmId').value = '';
         modalTitle.textContent = 'Новый фильм';
+        await loadDirectors();
+        renderDirectors();
         openModal();
     });
 
@@ -202,6 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('year').value = film.year || '';
         document.getElementById('rating').value = film.rating || '';
         document.getElementById('director_id').value = film.director_id || '';
+        await loadDirectors();
+        renderDirectors(film.director_id);
         document.getElementById('is_new').checked = film.is_new == 1;
         document.getElementById('is_popular').checked = film.is_popular == 1;
         modalTitle.textContent = 'Редактировать фильм';
@@ -224,6 +236,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function renderDirectors(selectedId = '') {
+        directorSelect.innerHTML = '<option value="">Выберите режиссёра</option>';
+
+        directorsCache.forEach(d => {
+            const opt = document.createElement('option');
+            opt.value = d.id;
+            opt.textContent = d.name;
+            if (String(d.id) === String(selectedId)) {
+                opt.selected = true;
+            }
+            directorSelect.appendChild(opt);
+        });
+    }
+
+    async function loadDirectors() {
+        if (directorsCache.length) return;
+
+        const res = await fetch('../api/admin_directors.php');
+        if (!res.ok) {
+            console.error('Не удалось загрузить режиссёров');
+            return;
+        }
+
+        directorsCache = await res.json();
+        renderDirectors();
+    }
 
     (async () => {
         const res = await fetch('../api/admin_films.php');
@@ -243,7 +281,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const meRes = await fetch('../api/admin_me.php');
                 if (meRes.ok) {
                     const me = await meRes.json();
-                    renderUserInfo({ email: me.email || '', username: me.username || '', provider: me.provider || null, display: me.display || '' });
+                    renderUserInfo({
+                        email: me.email || '',
+                        username: me.username || '',
+                        provider: me.provider || null,
+                        display: me.display || ''
+                    });
                 } else {
                     if (meRes.status === 401) {
                         renderUserInfo({});

@@ -14,30 +14,92 @@
 <body>
 <header>
     <div class="container header-container">
-        <h1><i class="fas fa-film"></i> Видеотека</h1>
-        <nav>
+        <h1><i class="fas fa-film" aria-hidden="true"></i> <span class="brand">Видеотека</span></h1>
+        <nav aria-label="Основная навигация">
             <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
-                <li><a href="genres.html"><i class="fas fa-tags"></i> Жанры</a></li>
-                <li><a href="films.html"><i class="fas fa-list"></i> Фильмы</a></li>
-                <li><a href="directors.html"><i class="fas fa-user-tie"></i> Режиссеры</a></li>
+                <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Главная</a></li>
+                <li><a href="genres.html"><i class="fas fa-tags" aria-hidden="true"></i> Жанры</a></li>
+                <li><a href="films.html" class="active" aria-current="page"><i class="fas fa-list"
+                                                                               aria-hidden="true"></i> Фильмы</a></li>
+                <li><a href="directors.html"><i class="fas fa-user-tie" aria-hidden="true"></i> Режиссеры</a></li>
             </ul>
         </nav>
-        <div class="search-area">
-            <input id="searchInput" placeholder="Поиск фильмов..." type="text">
-            <button id="searchBtn" type="button"><i class="fas fa-search"></i></button>
-            <div class="search-results" id="searchResults"></div>
+        <div class="search-area" role="search">
+            <label for="searchInput" class="visually-hidden">Поиск фильмов</label>
+            <input id="searchInput" placeholder="Поиск фильмов..." type="text" aria-controls="searchResults"
+                   aria-autocomplete="list" aria-label="Поиск фильмов">
+            <button id="searchBtn" type="button" aria-label="Запустить поиск"><i class="fas fa-search"
+                                                                                 aria-hidden="true"></i></button>
+            <div class="search-results" id="searchResults" role="listbox" aria-live="polite" aria-hidden="true"></div>
         </div>
     </div>
 </header>
+
 <main>
     <div class="container">
-        <section class="genre-header">
+        <section class="genre-header" aria-live="polite" aria-atomic="true" style="padding: 0;">
 
         </section>
 
-        <div class="film-grid" id="genreFilms">
-            <!-- Динамически загружаемые карточки фильмов -->
+        <section class="section-title" aria-hidden="false" style="margin-top:12px;">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                <h2 id="filmsByGenreTitle"><i class="fas fa-film" aria-hidden="true"></i> Фильмы</h2>
+
+                <div class="controls" role="toolbar" aria-label="Управление списком фильмов">
+                    <div class="sort-controls" role="tablist" aria-label="Сортировка фильмов"
+                         style="display:inline-flex; gap:8px; margin-left:8px;">
+                        <button class="btn-small sort-film" data-sort="popular" aria-pressed="true"
+                                title="Сортировать по популярности">Популярные
+                        </button>
+                        <button class="btn-small sort-film" data-sort="new" aria-pressed="false"
+                                title="Сортировать по новизне">Новинки
+                        </button>
+                        <button class="btn-small sort-film" data-sort="year" aria-pressed="false"
+                                title="Сортировать по году">Год
+                        </button>
+                    </div>
+
+                    <div class="view-controls" role="group" aria-label="Вид отображения"
+                         style="display:inline-flex; gap:8px; margin-left:12px;">
+                        <button class="btn-small view-btn active" data-view="grid" aria-pressed="true" title="Карточки">
+                            Карточки
+                        </button>
+                        <button class="btn-small view-btn" data-view="list" aria-pressed="false" title="Список">Список
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:8px; color:var(--muted); font-size:0.95rem;" id="filmsFilterInfo"
+                 aria-live="polite"></div>
+        </section>
+
+        <div id="genreControlsRow" style="margin:10px 0; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+            <label for="minRating" style="display:inline-flex; align-items:center; gap:8px; font-size:0.95rem;">
+                Мин. рейтинг:
+                <select id="minRating" class="btn-small" aria-label="Минимальный рейтинг фильтра">
+                    <option value="0">—</option>
+                    <option value="5">5+</option>
+                    <option value="6">6+</option>
+                    <option value="7">7+</option>
+                    <option value="8">8+</option>
+                </select>
+            </label>
+
+            <label for="yearSelect" style="display:inline-flex; align-items:center; gap:8px; font-size:0.95rem;">
+                Год:
+                <select id="yearSelect" class="btn-small" aria-label="Фильтр по году">
+                    <option value="">—</option>
+                </select>
+            </label>
+
+            <button id="clearFilters" class="btn-small" aria-label="Сбросить фильтры">Сброс фильтров</button>
+        </div>
+
+        <div id="genreStatus" aria-live="polite" aria-atomic="true" style="min-height:20px;"></div>
+
+        <div class="film-grid" id="genreFilms" aria-busy="true" role="list">
+            <!-- Скелетоны / карточки вставляются скриптом -->
         </div>
     </div>
 </main>
@@ -46,20 +108,24 @@
     <div class="container">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>О видеотеке</h3>
+                <h3>О видеотеке <a class="help-btn" title="Краткая справка" aria-label="Открыть краткую справку"><i
+                        class="fas fa-question" aria-hidden="true" style="color: #f5f6fa"></i></a></h3>
                 <p>Лучшая коллекция фильмов для настоящих киноманов.</p>
             </div>
             <div class="footer-section">
                 <h3>Контакты</h3>
-                <p><i class="fas fa-envelope"></i> info@videoteka.ru</p>
-                <p><i class="fas fa-phone"></i> +7 (123) 456-78-90</p>
+                <p><i class="fas fa-envelope" aria-hidden="true"></i> info@videoteka.ru</p>
+                <p><i class="fas fa-phone" aria-hidden="true"></i> +7 (123) 456-78-90</p>
             </div>
             <div class="footer-section">
                 <h3>Подписаться</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-vk"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                <div class="social-icons" role="list">
+                    <a href="#" title="ВКонтакте" aria-label="ВКонтакте"><i class="fab fa-vk"
+                                                                            aria-hidden="true"></i></a>
+                    <a href="#" title="Telegram" aria-label="Telegram"><i class="fab fa-telegram"
+                                                                          aria-hidden="true"></i></a>
+                    <a href="#" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube"
+                                                                        aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
@@ -68,6 +134,8 @@
         </div>
     </div>
 </footer>
+
+<div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
 <script src="scripts/search.js"></script>
 <script src="scripts/films_by_genre.js"></script>
