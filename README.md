@@ -26,13 +26,11 @@ WEB_Design/
 │   ├── directors.php      # Управление режиссерами
 │   ├── genres.php         # Управление жанрами
 │   ├── search.php         # Поиск фильмов
-│   ├── admin_*.php        # Административные функции
-│   └── create_database.php # Создание БД
+│   └── admin_*.php        # Административные функции
 ├── pages/                  # HTML страницы
 │   ├── films.html         # Каталог фильмов
 │   ├── directors.html     # Список режиссеров
 │   ├── genres.html        # Список жанров
-│   ├── admin.html         # Административная панель
 │   └── *.html             # Другие страницы
 ├── scripts/                # JavaScript файлы
 │   ├── index.js           # Главная страница
@@ -44,6 +42,7 @@ WEB_Design/
 │       ├── styles.css     # Основные стили
 │       └── admin_styles.css # Стили админки
 ├── img/                   # Изображения и favicon
+├── admin.html             # Административная панель
 └── index.html             # Главная страница
 ```
 
@@ -71,28 +70,16 @@ GRANT ALL PRIVILEGES ON videoteka.* TO 'videouser'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-3. Запустите скрипт создания таблиц:
-```
-http://ваш-сайт/api/create_database.php
-```
+3. Запустите скрипт создания таблиц `database/database.sql`
 
 ### 3. Настройка подключения
 
-Отредактируйте параметры подключения в файлах API (api/*.php):
+Отредактируйте параметры подключения в файлах API, если указали другие имена и пароль при создании БД (api/*.php):
 ```php
 $servername = "localhost";
 $username = "videouser";
 $password = "password123";
 $dbname = "videoteka";
-```
-
-### 4. Загрузка на сервер
-
-1. Загрузите все файлы проекта на веб-сервер
-2. Убедитесь, что папка `api/` доступна для выполнения PHP
-3. Проверьте подключение к БД:
-```
-http://ваш-сайт/api/check_connection_to_bd.php
 ```
 
 ## Использование
