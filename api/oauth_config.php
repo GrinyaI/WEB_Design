@@ -2,7 +2,7 @@
 require_once 'secret.php';
 
 return [
-    'base_url' => 'http://localhost:8080',
+    'base_url' => 'https://videoteka.loca.lt',
     'callback_path' => '/api/admin_oauth_callback.php',
 
     'providers' => [
