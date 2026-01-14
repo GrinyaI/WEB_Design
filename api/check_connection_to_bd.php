@@ -1,8 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "videouser";
-$password = "password123";
-$dbname = "videoteka";
+require_once 'db_config.php';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 $conn->set_charset("utf8");

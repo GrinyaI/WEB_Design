@@ -1,5 +1,4 @@
 <?php
-// CLI script: php create_admin.php username password
 if (php_sapi_name() !== 'cli') {
     echo "This script must be run from CLI.\n";
     exit(1);
@@ -13,12 +12,9 @@ if ($argc < 3) {
 $username = $argv[1];
 $password = $argv[2];
 
-$servername = "localhost";
-$dbuser = "videouser";
-$dbpass = "password123";
-$dbname = "videoteka";
+require_once 'db_config.php';
 
-$conn = new mysqli($servername, $dbuser, $dbpass, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     echo "DB connect error: " . $conn->connect_error . "\n";
     exit(1);

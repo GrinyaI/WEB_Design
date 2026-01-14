@@ -17,12 +17,9 @@ if ($u === '' || $p === '') {
     exit;
 }
 
-$servername = "localhost";
-$dbuser = "videouser";
-$dbpass = "password123";
-$dbname = "videoteka";
+require_once 'db_config.php';
 
-$conn = new mysqli($servername, $dbuser, $dbpass, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     http_response_code(500);
     echo json_encode(['error' => 'DB connection failed']);
