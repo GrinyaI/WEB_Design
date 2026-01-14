@@ -12,8 +12,8 @@
 header('Content-Type: text/plain; charset=utf-8');
 
 $host = 'localhost';
-$user = 'root';
-$pass = 'root';
+$user = 'videouser';
+$pass = 'password123';
 
 $mysqli = new mysqli($host, $user, $pass);
 

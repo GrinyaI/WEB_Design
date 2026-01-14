@@ -16,7 +16,7 @@ $staticPages = [
     '/pages/directors.html',
     '/pages/films_by_genre.html',
     '/pages/films_by_director.html',
-    '/pages/admin.html',
+    '/admin.html',
     '/pages/403.html',
     '/pages/404.html',
 ];
