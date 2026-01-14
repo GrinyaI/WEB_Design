@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
     sortLabel.textContent = currentSort === 'default' ? 'Сортировка: По умолчанию' : `Сортировка: ${currentSort}`;
     renderSkeletons(allFilmsContainer, 8);
 
-    fetch('api/films.php')
+    fetch('/api/films.php')
         .then(resp => {
             if (!resp.ok) throw new Error('Ошибка сети при получении фильмов');
             return resp.json();
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
         wrapper.setAttribute('role', 'listitem');
 
         const isNew = film.is_new == 1;
-        const poster = film.poster_url || 'img/placeholder.jpg';
+        const poster = film.poster_url || '/img/films/opengamer.webp';
         const title = film.title || 'Без названия';
 
         wrapper.innerHTML = `
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (skeleton) skeleton.remove();
         });
         img.addEventListener('error', () => {
-            img.src = 'img/placeholder.jpg';
+            img.src = '/img/films/opengamer.webp';
             if (skeleton) skeleton.remove();
             showToast({message: `Постер для "${film.title}" недоступен. Показывается заглушка.`, type: 'info', timeout: 4200});
         });

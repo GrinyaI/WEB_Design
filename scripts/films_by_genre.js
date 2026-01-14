@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function createFilmCard(film) {
-        const poster = film.poster_url || 'img/placeholder.jpg';
+        const poster = film.poster_url || '/img/films/opengamer.webp';
         const isNew = film.is_new == 1;
         const wrapper = document.createElement('div');
         wrapper.className = 'film-card';
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (skeleton) skeleton.remove();
         });
         img.addEventListener('error', () => {
-            img.src = 'img/placeholder.jpg';
+            img.src = '/img/films/opengamer.webp';
             if (skeleton) skeleton.remove();
             showToast({message: `Постер для "${film.title}" не доступен. Показана заглушка.`, type: 'info', timeout: 4000});
         });
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function fetchFilmsByGenre() {
         renderSkeletons(6);
         genreHeader.innerHTML = '';
-        fetch(`api/films_by_genre.php?genre=${encodeURIComponent(genreName)}`, {cache: 'no-store'})
+        fetch(`/api/films_by_genre.php?genre=${encodeURIComponent(genreName)}`, {cache: 'no-store'})
             .then(resp => {
                 if (!resp.ok) throw new Error('Ошибка сети: ' + resp.status);
                 return resp.json();

@@ -12,9 +12,17 @@ if ($conn->connect_error) {
     die(json_encode(['error' => 'Database connection failed']));
 }
 
-$query = isset($_GET['q']) ? $conn->real_escape_string($_GET['q']) : '';
+$query = isset($_GET['q']) ? trim($_GET['q']) : '';
 
-$sql = "SELECT
+if (empty($query)) {
+    echo json_encode([]);
+    $conn->close();
+    exit;
+}
+
+$search_term = '%' . $conn->real_escape_string($query) . '%';
+
+$stmt = $conn->prepare("SELECT
             f.id,
             f.title,
             f.year,
@@ -27,17 +35,19 @@ $sql = "SELECT
         LEFT JOIN film_genre fg ON f.id = fg.film_id
         LEFT JOIN genres g ON fg.genre_id = g.id
         WHERE
-            f.title LIKE '%$query%'
-            OR d.name LIKE '%$query%'
-            OR g.name LIKE '%$query%'
-        GROUP BY f.id";
-
-$result = $conn->query($sql);
+            f.title LIKE ?
+            OR d.name LIKE ?
+            OR g.name LIKE ?
+        GROUP BY f.id");
+$stmt->bind_param('sss', $search_term, $search_term, $search_term);
+$stmt->execute();
+$result = $stmt->get_result();
 
 $films = [];
 while($row = $result->fetch_assoc()) {
     $films[] = $row;
 }
+$stmt->close();
 
 echo json_encode($films);
 

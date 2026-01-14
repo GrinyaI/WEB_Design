@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function fetchGenres() {
         renderSkeletons();
-        fetch('api/genres.php', {cache: 'no-store'})
+        fetch('/api/genres.php', {cache: 'no-store'})
             .then(response => {
                 if (!response.ok) throw new Error('Ошибка сети: ' + response.status);
                 return response.json();

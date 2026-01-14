@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
         <td>${escapeHtml(film.id)}</td>
-        <td>${film.poster_url ? `<img src="${escapeHtml(film.poster_url)}" alt="">` : ''}</td>
+        <td>${film.poster_url ? `<img src="${escapeHtml(film.poster_url)}" alt="Постер фильма ${escapeHtml(film.title)}">` : ''}</td>
         <td>${escapeHtml(film.title)}</td>
         <td>${escapeHtml(film.year)}</td>
         <td>${escapeHtml(film.rating)}</td>

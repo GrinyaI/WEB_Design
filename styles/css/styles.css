@@ -994,6 +994,44 @@ footer {
         margin-top: 1rem;
         align-self: flex-end;
     }
+
+    .film-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .genres-grid {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Tablet styles (768px - 992px) */
+@media (min-width: 768px) and (max-width: 992px) {
+    .film-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .directors-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .genres-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+/* Semantic tags styling */
+em {
+    font-style: italic;
+    color: var(--secondary-color);
+}
+
+strong {
+    font-weight: 700;
+    color: var(--dark-color);
 }
 
 /* directors page specifics */
@@ -1078,4 +1116,148 @@ footer {
 .focus-temp {
     box-shadow: 0 0 0 4px rgba(246, 185, 59, 0.12);
     transform: translateY(-4px);
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+    font-size: 0.9rem;
+    margin: 0.75rem 0 0.5rem;
+    color: var(--muted);
+}
+
+.breadcrumbs ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumbs li::after {
+    content: "›";
+    margin-left: 0.35rem;
+    color: var(--muted);
+}
+
+.breadcrumbs li:last-child::after {
+    content: "";
+}
+
+.breadcrumbs a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:focus-visible {
+    text-decoration: underline;
+}
+
+/* Print Styles */
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+        background: #fff;
+    }
+
+    header,
+    footer,
+    .search-area,
+    .slider-controls,
+    .btn,
+    .btn-small,
+    .pagination,
+    .controls,
+    .filter-controls,
+    #toastContainer {
+        display: none !important;
+    }
+
+    main {
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        color: #000;
+    }
+
+    .section-title {
+        margin: 1rem 0 0.5rem;
+        page-break-after: avoid;
+    }
+
+    .film-grid,
+    .directors-grid,
+    .genres-grid {
+        display: block;
+        page-break-inside: avoid;
+    }
+
+    .film-card,
+    .director-card,
+    .genre-card {
+        page-break-inside: avoid;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        padding: 0.5rem;
+        box-shadow: none;
+    }
+
+    .film-poster img,
+    .director-photo img {
+        max-width: 150px;
+        height: auto;
+    }
+
+    a {
+        text-decoration: underline;
+        color: #000;
+    }
+
+    a[href^="http"]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.9em;
+        color: #666;
+    }
+
+    a[href^="#"]:after,
+    a[href^="./"]:after {
+        content: "";
+    }
+
+    .hero {
+        background: #fff;
+        color: #000;
+        border: 1px solid #ddd;
+        padding: 1rem;
+    }
+
+    .film-info,
+    .director-info,
+    .genre-info {
+        page-break-inside: avoid;
+    }
+
+    @page {
+        margin: 2cm;
+    }
 }

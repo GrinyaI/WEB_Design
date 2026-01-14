@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     setBusy(true);
-    fetch('api/index.php')
+    fetch('/api/index.php')
         .then(response => {
             if (!response.ok) throw new Error('Ошибка сети при получении данных');
             return response.json();
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function createFilmCard(film) {
         const genres = film.genres || 'Нет данных';
         const isNew = film.is_new == 1;
-        const poster = film.poster_url || 'img/placeholder.jpg';
+        const poster = film.poster_url || '/img/films/opengamer.webp';
 
         const wrapper = document.createElement('div');
         wrapper.className = 'film-card';
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (skeleton) skeleton.remove();
         });
         img.addEventListener('error', () => {
-            img.src = 'img/placeholder.jpg';
+            img.src = '/img/films/opengamer.webp';
             if (skeleton) skeleton.remove();
             showToast({message: `Постер для "${film.title}" не доступен. Отображается заглушка.`, type: 'info', timeout: 4200});
         });

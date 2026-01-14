@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderSkeletons();
 
-    fetch('api/directors.php')
+    fetch('/api/directors.php')
         .then(res => {
             if (!res.ok) throw new Error('Ошибка сети при получении режиссёров');
             return res.json();
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="poster-skeleton" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
                     <div class="spinner" aria-hidden="true"></div>
                 </div>
-                <img alt="${escapeHtml(director.title)}" src="${escapeHtml(director.poster || 'img/placeholder.jpg')}" loading="lazy">
+                <img alt="${escapeHtml(director.title)}" src="${escapeHtml(director.poster || '/img/films/opengamer.webp')}" loading="lazy">
             </div>
             <div class="director-info">
                 <h3 title="${escapeHtml(director.title)}">${escapeHtml(director.title)}</h3>
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (skeleton) skeleton.remove();
         });
         img.addEventListener('error', () => {
-            img.src = 'img/placeholder.jpg';
+            img.src = '/img/films/opengamer.webp';
             if (skeleton) skeleton.remove();
             showToast({message: `Постер режиссёра "${director.title}" недоступен — используется заглушка.`, type: 'info', timeout: 4200});
         });

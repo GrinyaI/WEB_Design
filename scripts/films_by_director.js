@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     directorDataEl.setAttribute('aria-busy', 'true');
     filmsContainer.setAttribute('aria-busy', 'true');
 
-    fetch(`api/films_by_director.php?director=${encodeURIComponent(directorId)}`)
+    fetch(`/api/films_by_director.php?director=${encodeURIComponent(directorId)}`)
         .then(resp => {
             if (!resp.ok) throw new Error('Ошибка сети при получении данных.');
             return resp.json();
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const name = escapeHtml(d.title || '—');
-        const poster = escapeHtml(d.poster || 'img/placeholder.jpg');
+        const poster = escapeHtml(d.poster || '/img/films/opengamer.webp');
         const birthday = escapeHtml(d.birthday || '—');
         const filmsCount = escapeHtml(String(d.filmsCount || '0'));
         const rating = escapeHtml(String(d.rating || '—'));
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="director-photo large" style="width:200px; height:250px; overflow:hidden; border-radius:8px;">
                     <div style="position:relative; width:200px; height:250px; background:#eef3fb;">
                         <div class="spinner" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);"></div>
-                        <img src="${poster}" alt="Фото ${name}" style="width:100%; height:100%; object-fit:cover; display:none;" onload="this.style.display='block'; this.previousElementSibling && this.previousElementSibling.remove();" onerror="this.src='img/placeholder.jpg'; this.previousElementSibling && this.previousElementSibling.remove();">
+                        <img src="${poster}" alt="Фото ${name}" style="width:100%; height:100%; object-fit:cover; display:none;" onload="this.style.display='block'; this.previousElementSibling && this.previousElementSibling.remove();" onerror="this.src='/img/films/opengamer.webp'; this.previousElementSibling && this.previousElementSibling.remove();">
                     </div>
                 </div>
                 <div class="director-details">
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
         card.setAttribute('data-id', film.id);
         card.setAttribute('role', 'listitem');
 
-        const posterUrl = film.poster || 'img/placeholder.jpg';
+        const posterUrl = film.poster || '/img/films/opengamer.webp';
         const isNew = film.is_new == 1;
         const title = escapeHtml(film.title || '—');
         const year = escapeHtml(String(film.year || '—'));
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (skeleton) skeleton.remove();
         });
         img.addEventListener('error', () => {
-            img.src = 'img/placeholder.jpg';
+            img.src = '/img/films/opengamer.webp';
             if (skeleton) skeleton.remove();
             showToast({message: `Постер для "${film.title}" недоступен. Показана заглушка.`, type: 'info'});
         });

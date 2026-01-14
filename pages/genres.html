@@ -3,13 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta name="description" content="Все жанры фильмов в видеотеке: криминал, драма, боевик, фантастика, комедия и другие.">
     <title>Видеотека – Жанры</title>
-    <link href="styles/css/styles.css" rel="stylesheet">
+    <meta property="og:title" content="Видеотека – Жанры">
+    <meta property="og:description" content="Все жанры фильмов в видеотеке: криминал, драма, боевик, фантастика, комедия и другие.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/pages/genres.html">
+    <meta property="og:image" content="https://example.com/img/films/opengamer.webp">
+    <meta property="og:site_name" content="Видеотека">
+    <meta property="og:locale" content="ru_RU">
+    <link href="../styles/css/styles.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="img/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../img/favicon/site.webmanifest">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Жанры фильмов",
+      "url": "https://example.com/pages/genres.html"
+    }
+    </script>
 </head>
 <body>
 <header>
@@ -17,11 +33,11 @@
         <h1><i class="fas fa-film" aria-hidden="true"></i> <span class="brand">Видеотека</span></h1>
         <nav aria-label="Основная навигация">
             <ul>
-                <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Главная</a></li>
-                <li><a class="active" href="genres.html" aria-current="page"><i class="fas fa-tags"
+                <li><a href="../index.html" title="Главная страница видеотеки"><i class="fas fa-home" aria-hidden="true"></i> Главная</a></li>
+                <li><a class="active" href="genres.html" title="Список всех жанров фильмов" aria-current="page"><i class="fas fa-tags"
                                                                                 aria-hidden="true"></i> Жанры</a></li>
-                <li><a href="films.html"><i class="fas fa-list" aria-hidden="true"></i> Фильмы</a></li>
-                <li><a href="directors.html"><i class="fas fa-user-tie" aria-hidden="true"></i> Режиссеры</a></li>
+                <li><a href="films.html" title="Каталог всех фильмов"><i class="fas fa-list" aria-hidden="true"></i> Фильмы</a></li>
+                <li><a href="directors.html" title="Список режиссеров"><i class="fas fa-user-tie" aria-hidden="true"></i> Режиссеры</a></li>
             </ul>
         </nav>
         <div class="search-area" role="search">
@@ -84,11 +100,11 @@
             <div class="footer-section">
                 <h3>Подписаться</h3>
                 <div class="social-icons" role="list">
-                    <a href="#" title="ВКонтакте" aria-label="ВКонтакте"><i class="fab fa-vk"
+                    <a href="https://vk.com" target="_blank" rel="noopener noreferrer" title="ВКонтакте - откроется в новом окне" aria-label="ВКонтакте"><i class="fab fa-vk"
                                                                             aria-hidden="true"></i></a>
-                    <a href="#" title="Telegram" aria-label="Telegram"><i class="fab fa-telegram"
+                    <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" title="Telegram - откроется в новом окне" aria-label="Telegram"><i class="fab fa-telegram"
                                                                           aria-hidden="true"></i></a>
-                    <a href="#" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube"
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube - откроется в новом окне" aria-label="YouTube"><i class="fab fa-youtube"
                                                                         aria-hidden="true"></i></a>
                 </div>
             </div>
@@ -101,7 +117,8 @@
 
 <div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
-<script src="scripts/search.js"></script>
-<script src="scripts/genres.js"></script>
+<script src="../scripts/search.js"></script>
+<script src="../scripts/genres.js"></script>
 </body>
 </html>
+

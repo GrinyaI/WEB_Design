@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         searchResults.innerHTML = results.map(film => `
             <div class="search-result-item" data-id="${escapeHtml(film.id)}" role="option" tabindex="0">
                 <div class="search-result-poster" aria-hidden="true">
-                    <img src="${escapeHtml(film.poster || 'img/placeholder.jpg')}" alt="${escapeHtml(film.title)}" width="50">
+                    <img src="${escapeHtml(film.poster || '/img/films/opengamer.webp')}" alt="${escapeHtml(film.title)}" width="50">
                 </div>
                 <div class="search-result-info">
                     <h4>${escapeHtml(film.title)}</h4>
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         searchResults.classList.add('show');
         searchResults.setAttribute('aria-hidden', 'false');
 
-        fetch(`api/search.php?q=${encodeURIComponent(q)}`)
+        fetch(`/api/search.php?q=${encodeURIComponent(q)}`)
             .then(response => {
                 if (!response.ok) throw new Error('Ошибка сети');
                 return response.json();
